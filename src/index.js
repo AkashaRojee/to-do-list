@@ -33,6 +33,11 @@ class ToDoList {
 
   add(description, completed, index) {
     this.tasks.push(new Task(description, completed, index));
+    console.log(index);
+  }
+
+  sort() {
+    this.tasks.sort((a, b) => a.index - b.index);
   }
 
   populate() {
@@ -44,10 +49,11 @@ function initialiseList() {
 
   toDoList = new ToDoList();
 
-  toDoList.add('Task4', false, 3);
-  toDoList.add('Task1', false, 0);
-  toDoList.add('Task2', false, 1);
-  toDoList.add('Task3', false, 2);
+  [...Array(10).keys()].forEach(i => {
+    toDoList.add(`Task${i}`, false, i);
+  });
+
+  toDoList.sort();
 
   toDoList.populate();
 
