@@ -44,15 +44,13 @@ function initialiseList() {
 
   toDoList = new ToDoList();
 
+  toDoList.add('Task4', false, 3);
   toDoList.add('Task1', false, 0);
   toDoList.add('Task2', false, 1);
   toDoList.add('Task3', false, 2);
-  toDoList.add('Task4', false, 3);
-  toDoList.add('Task5', false, 4);
-  toDoList.add('Task6', false, 5);
 
   toDoList.populate();
 
 }
 
-window.addEventListener('load', initialiseList);
+new Promise(resolve => window.addEventListener('load', resolve)).then(() => initialiseList());
