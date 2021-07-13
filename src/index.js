@@ -1,4 +1,4 @@
-import './style.css';
+import './style.scss';
 
 const list = document.querySelector('ul');
 let toDoList;
