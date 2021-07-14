@@ -4,8 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do list</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
-    <ul></ul>
+
+  <main>
+
+    <div class="container flex-col">
+
+      <div class="flex-row space-between align-center">
+        <p>Today's To Do</p>
+        <button class="material-icons">refresh</button>
+      </div>
+
+      <div class="flex-row">
+        <input type="text" class="fill" placeholder="Add to your list...">
+        <button class="material-icons">add</button>
+      </div>
+
+      <ul>
+        <!-- Populated dynamically -->
+      </ul>
+
+      <button>Clear all completed</button>
+
+    </div>
+
+  </main>
+
 </body>
 </html>

@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@0;1&display=swap');
+@import 'flex.scss';
+@import 'custom.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans';
+  font-size: 16px;
+}
+
+$default-border: 1px solid grey;
+
+.container {
+  width: 85%;
+  margin: 50px auto;
+  border: $default-border;
+  box-shadow: 0px 5px 10px grey;
+
+  .material-icons {
+    font-size: inherit;
+    color: grey;
+  }
+
+  > div, li {
+    padding: 10px;
+    border-bottom: $default-border;
+  }
+
+  > div, li, > button {
+    min-height: 40px;
+  }
+
+  button {
+    color: grey;
+  }
+  
+  button, input, li {
+    @extend %minimal;
+  }
+  
+  input {
+    font-style: italic;
+    color: grey;
+    margin-right: 10px;
+  }
+}

@@ -14,7 +14,14 @@ function createElement(elementType, classNames = '', attributes = {}, innerHTML 
 }
 
 function appendListItem(description) {
-  list.appendChild(createElement('li', '', {}, description));
+  const listItem = createElement('li', 'flex-row space-between align-center');
+  const checkBoxContainer = createElement('div', 'flex-row align-center');
+  const checkBox = createElement('input', '', {type: 'checkbox'});
+  const listText = createElement('span', '', {}, description);
+  const moreIcon = createElement('span', 'material-icons', {}, 'more_vert');
+  checkBoxContainer.append(checkBox, listText);
+  listItem.append(checkBoxContainer, moreIcon);
+  list.append(listItem);
 }
 
 class Task {
@@ -33,7 +40,6 @@ class ToDoList {
 
   add(description, completed, index) {
     this.tasks.push(new Task(description, completed, index));
-    console.log(index);
   }
 
   sort() {
@@ -49,7 +55,7 @@ function initialiseList() {
 
   toDoList = new ToDoList();
 
-  [...Array(10).keys()].forEach(i => {
+  [...Array(5).keys()].forEach(i => {
     toDoList.add(`Task${i}`, false, i);
   });
 
