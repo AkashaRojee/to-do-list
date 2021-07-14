@@ -16,7 +16,7 @@ function createElement(elementType, classNames = '', attributes = {}, innerHTML 
 function appendListItem(description) {
   const listItem = createElement('li', 'flex-row space-between align-center');
   const checkBoxContainer = createElement('div', 'flex-row align-center');
-  const checkBox = createElement('input', '', {type: 'checkbox'});
+  const checkBox = createElement('input', '', { type: 'checkbox' });
   const listText = createElement('span', '', {}, description);
   const moreIcon = createElement('span', 'material-icons', {}, 'more_vert');
   checkBoxContainer.append(checkBox, listText);
@@ -33,7 +33,6 @@ class Task {
 }
 
 class ToDoList {
-
   constructor() {
     this.tasks = [];
   }
@@ -47,22 +46,20 @@ class ToDoList {
   }
 
   populate() {
-    this.tasks.map(task => task.description).forEach(description => appendListItem(description));
+    this.tasks.map((task) => task.description).forEach((description) => appendListItem(description));
   }
 }
 
 function initialiseList() {
-
   toDoList = new ToDoList();
 
-  [...Array(5).keys()].forEach(i => {
+  [...Array(5).keys()].forEach((i) => {
     toDoList.add(`Task${i}`, false, i);
   });
 
   toDoList.sort();
 
   toDoList.populate();
-
 }
 
-new Promise(resolve => window.addEventListener('load', resolve)).then(() => initialiseList());
+new Promise((resolve) => window.addEventListener('load', resolve)).then(() => initialiseList());
