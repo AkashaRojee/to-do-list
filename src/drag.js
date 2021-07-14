@@ -32,6 +32,7 @@ function dragOver(e) {
         e.target.innerHTML = '';
       }
       draggedItem.innerHTML = targetData;
+      draggedItem = e.target;
     }
     e.preventDefault();
   }
@@ -41,6 +42,8 @@ function drop(e) {
   e.dataTransfer.dropEffect = 'move';
   if (e.target.tagName === 'LI') {
     e.target.innerHTML = e.dataTransfer.getData('text/html');
+    currentTarget = undefined;
+    e.dataTransfer.clearData();
   }
 }
 
