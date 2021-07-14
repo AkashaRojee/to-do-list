@@ -1,9 +1,11 @@
 import './style.scss';
 import ToDoList from './ToDoList.js';
-
-let toDoList;
+import {initDrag} from './drag.js';
 
 function initialiseList() {
+
+  let toDoList;
+
   toDoList = new ToDoList();
 
   [...Array(5).keys()].forEach((i) => {
@@ -13,6 +15,12 @@ function initialiseList() {
   toDoList.sort();
 
   toDoList.populate();
+
 }
 
-new Promise((resolve) => window.addEventListener('load', resolve)).then(() => initialiseList());
+function initialise() {
+  initialiseList();
+  initDrag();
+}
+
+new Promise((resolve) => window.addEventListener('load', resolve)).then(() => initialise());

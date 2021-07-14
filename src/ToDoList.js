@@ -4,7 +4,7 @@ import createElement from './library.js';
 const list = document.querySelector('ul');
 
 function appendListItem(description) {
-  const listItem = createElement('li', 'flex-row space-between align-center');
+  const listItem = createElement('li', 'flex-row space-between align-center', {draggable: true});
   const checkBoxContainer = createElement('div', 'flex-row align-center');
   checkBoxContainer.append(
     createElement('input', '', { type: 'checkbox' }),
@@ -12,7 +12,7 @@ function appendListItem(description) {
   );
   listItem.append(
     checkBoxContainer,
-    createElement('span', 'material-icons', {}, 'more_vert'),
+    createElement('button', 'material-icons drag', {}, 'more_vert'),
   );
   list.append(listItem);
 }
