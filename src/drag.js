@@ -1,12 +1,14 @@
+import {addMultipleListeners} from './library.js'
+
 let draggedItem;
 let draggedData, targetData;
 let currentTarget;
 
 function dragStart(e) {
   draggedItem = e.target;
+  draggedData = e.target.innerHTML;
   e.dataTransfer.effectAllowed = 'move';
   e.dataTransfer.setData('text/html', e.target.innerHTML);
-  draggedData = e.target.innerHTML;
 }
 
 function dragOver(e) {
@@ -23,14 +25,8 @@ function dragOver(e) {
   } else {
     if (currentTarget !== thisTarget) {
       currentTarget = thisTarget;
-      e.preventDefault();
-      if (e.target.parentNode.tagName === 'LI') {
-        targetData = e.target.parentNode.cloneNode(true).innerHTML;
-        e.target.parentNode.innerHTML == '';
-      } else  if (e.target.tagName === 'LI') {
-        targetData = e.target.cloneNode(true).innerHTML;
-        e.target.innerHTML = '';
-      }
+      targetData = thisTarget.cloneNode(true).innerHTML;
+      thisTarget.innerHTML = '';
       draggedItem.innerHTML = targetData;
       draggedItem = e.target;
     }
@@ -49,12 +45,13 @@ function drop(e) {
 
 export function initDrag() {
 
-  const listItems = document.querySelectorAll('li');
-
-  listItems.forEach(listItem => {
-    listItem.addEventListener('dragstart', (e) => dragStart(e));
-    listItem.addEventListener('dragover', (e) => dragOver(e));
-    listItem.addEventListener('drop', (e) => drop(e));
-  });
+  addMultipleListeners(
+    document.querySelectorAll('li'),
+    {
+      dragstart: (e) => dragStart(e),
+      dragover: (e) => dragOver(e),
+      drop: (e) => drop(e)
+    }
+  );
 
 }

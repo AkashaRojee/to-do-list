@@ -1,5 +1,5 @@
 import Task from './Task.js';
-import createElement from './library.js';
+import {createElement} from './library.js';
 
 const list = document.querySelector('ul');
 
