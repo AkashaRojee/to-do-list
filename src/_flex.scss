@@ -16,11 +16,13 @@
 
 .flex-col {
   @extend %flex;
+
   @include direction($direction-property: column);
 }
 
 .flex-row {
   @extend %flex;
+
   @include direction($direction-property: row);
 }
 

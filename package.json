@@ -7,17 +7,20 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
     "build": "webpack"
-  },
+  }
+  ,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AkashaRojee/webpack-boilerplate.git"
-  },
+  }
+  ,
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AkashaRojee/webpack-boilerplate/issues"
-  },
+
+  }
+  ,
   "homepage": "https://github.com/AkashaRojee/webpack-boilerplate#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -35,7 +38,7 @@
     "stylelint-csstree-validator": "^1.9.0",
     "stylelint-scss": "^3.19.0",
     "webpack": "^5.44.0",
-    "webpack-cli": "^4.7.2",
+    "webpack-cli": "^4.7.2",    
     "webpack-dev-server": "^3.11.2"
   }
 }

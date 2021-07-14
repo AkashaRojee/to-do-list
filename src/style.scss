@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Josefin Sans';
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 16px;
 }
 
@@ -16,30 +16,35 @@ $default-border: 1px solid grey;
   width: 85%;
   margin: 50px auto;
   border: $default-border;
-  box-shadow: 0px 5px 10px grey;
+  box-shadow: 0 5px 10px grey;
 
   .material-icons {
     font-size: inherit;
     color: grey;
   }
 
-  > div, li {
+  > div,
+  li {
     padding: 10px;
     border-bottom: $default-border;
   }
 
-  > div, li, > button {
+  > div,
+  li,
+  > button {
     min-height: 40px;
   }
 
   button {
     color: grey;
   }
-  
-  button, input, li {
+
+  button,
+  input,
+  li {
     @extend %minimal;
   }
-  
+
   input {
     font-style: italic;
     color: grey;
