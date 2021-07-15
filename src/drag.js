@@ -1,34 +1,31 @@
 import {addMultipleListeners} from './library.js'
 
-let draggedItem;
-let draggedData, targetData;
-let currentTarget;
+let itemToShift;
+let targetData;
+let savedTarget;
+
+function updateItemToShift(element) {
+  itemToShift = element;
+}
 
 function dragStart(e) {
-  draggedItem = e.target;
-  draggedData = e.target.innerHTML;
+  updateItemToShift(e.target);
   e.dataTransfer.effectAllowed = 'move';
   e.dataTransfer.setData('text/html', e.target.innerHTML);
 }
 
 function dragOver(e) {
+  let currentTarget = (e.target.parentNode.tagName === 'LI' ? e.target.parentNode : e.target);
 
-  let thisTarget;
-  if (e.target.parentNode.tagName === 'LI') {
-    thisTarget = e.target.parentNode;
-  } else  if (e.target.tagName === 'LI') {
-    thisTarget = e.target;
-  }
-
-  if (currentTarget === undefined ) {
-    currentTarget = thisTarget;
+  if (savedTarget === undefined ) {
+    savedTarget = currentTarget;
   } else {
-    if (currentTarget !== thisTarget) {
-      currentTarget = thisTarget;
-      targetData = thisTarget.cloneNode(true).innerHTML;
-      thisTarget.innerHTML = '';
-      draggedItem.innerHTML = targetData;
-      draggedItem = e.target;
+    if (savedTarget !== currentTarget) {
+      savedTarget = currentTarget;
+      targetData = currentTarget.cloneNode(true).innerHTML;
+      currentTarget.innerHTML = '';
+      itemToShift.innerHTML = targetData;
+      updateItemToShift(currentTarget);
     }
     e.preventDefault();
   }
@@ -38,7 +35,7 @@ function drop(e) {
   e.dataTransfer.dropEffect = 'move';
   if (e.target.tagName === 'LI') {
     e.target.innerHTML = e.dataTransfer.getData('text/html');
-    currentTarget = undefined;
+    savedTarget = undefined;
     e.dataTransfer.clearData();
   }
 }
