@@ -8,8 +8,7 @@ export function createElement(elementType, classNames = '', attributes = {}, inn
   return elementObject;
 }
 
-// Add the same several listeners to several elements
-export function addMultipleListeners(elements, listeners) {
+export function addListeners(elements, listeners) {
   elements.forEach((element) => {
     Object.entries(listeners).forEach(([event, listener]) => {
       element.addEventListener(event, listener);

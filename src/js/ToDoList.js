@@ -22,10 +22,6 @@ export default class ToDoList {
       .forEach((description) => this.appendListItem(description));
   }
 
-  setListItems() {
-    this.listItems = document.querySelectorAll('li');
-  }
-
   appendListItem(description) {
     const listItem = createElement('li', 'flex-row space-between align-center', { draggable: true });
     const checkBoxContainer = createElement('div', 'flex-row align-center');
@@ -38,6 +34,10 @@ export default class ToDoList {
       createElement('button', 'material-icons drag', {}, 'more_vert'),
     );
     this.list.append(listItem);
+  }
+
+  setListItems() {
+    this.listItems = document.querySelectorAll('li');
   }
 
   clear() {
@@ -57,6 +57,6 @@ export default class ToDoList {
   }
 
   updateTask(index, property, value) {
-    this.tasks[index][property] =value;
+    this.tasks[index][property] = value;
   }
 }
