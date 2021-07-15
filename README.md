@@ -19,6 +19,13 @@ Things done so far:
 - Split JS files into modules
 - Configure repository to deploy from Webpack output directory
 
+### 2. Make list interactive
+
+- Implement HTML Drag and Drop API on list items
+- Track task status
+- Implement Web Storage API for local storage of tasks
+- Refactor modules using classes
+
 ## Built With
 
 - Major languages: HTML, SCSS, JS
