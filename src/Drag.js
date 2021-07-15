@@ -1,8 +1,10 @@
+import ToDoList from './ToDoList.js';
 import {addMultipleListeners} from './library.js'
 
 class Drag {
   constructor() {
     this.prevTarget;
+    this.listItems = document.querySelectorAll('li');
   }
 
   updatePrevTarget(element) {
@@ -28,7 +30,20 @@ class Drag {
 
   drop(e) {
     e.target.innerHTML = e.dataTransfer.getData('text/html');
+    this.sort();
   }
+
+  sort() {
+    let toDoList = new ToDoList();
+    
+    this.listItems.forEach((listItem, index) => {
+      toDoList.add(
+        listItem.querySelector('span').innerHTML,
+        listItem.querySelector('input').checked,
+        index);
+    });
+  }
+  
 }
 
 export function initDrag() {
@@ -36,7 +51,7 @@ export function initDrag() {
   let drag = new Drag();
 
   addMultipleListeners(
-    document.querySelectorAll('li'),
+    drag.listItems,
     {
       dragstart: (e) => drag.start(e),
       dragover: (e) => drag.over(e),

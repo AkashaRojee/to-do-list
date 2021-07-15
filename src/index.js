@@ -4,9 +4,7 @@ import {initDrag} from './Drag.js';
 
 function initialiseList() {
 
-  let toDoList;
-
-  toDoList = new ToDoList();
+  let toDoList = new ToDoList();
 
   [...Array(5).keys()].forEach((i) => {
     toDoList.add(`Task${i}`, false, i);
