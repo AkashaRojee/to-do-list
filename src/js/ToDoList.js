@@ -1,4 +1,5 @@
 import Task from './Task.js';
+import LocalStorage from './LocalStorage.js';
 import { createElement } from './library.js';
 
 export default class ToDoList {
@@ -6,6 +7,17 @@ export default class ToDoList {
     this.tasks = [];
     this.list = document.querySelector('ul');
     this.listItems = '';
+    this.ls = new LocalStorage();
+  }
+
+  init() {
+    if (this.ls.length > 0) {
+      LocalStorage.fetch().forEach((task) => {
+        this.add(task.description, task.completed, task.index);
+      });
+    } else {
+      [...Array(5).keys()].forEach((i) => this.add(`Task ${i}`, false, i));
+    }
   }
 
   add(description, completed, index) {
@@ -18,19 +30,19 @@ export default class ToDoList {
 
   populate() {
     this.tasks
-      .map((task) => task.description)
-      .forEach((description) => this.appendListItem(description));
+      .map((task) => [task.description, task.completed])
+      .forEach(([description, completed]) => this.appendListItem(description, completed));
   }
 
-  appendListItem(description) {
+  appendListItem(description, completed) {
     const listItem = createElement('li', 'flex-row space-between align-center', { draggable: true });
-    const checkBoxContainer = createElement('div', 'flex-row align-center');
-    checkBoxContainer.append(
-      createElement('input', '', { type: 'checkbox' }),
+    const checkboxContainer = createElement('div', 'flex-row align-center');
+    checkboxContainer.append(
+      createElement('input', '', { type: 'checkbox' }, '', { checked: completed }),
       createElement('span', '', {}, description),
     );
     listItem.append(
-      checkBoxContainer,
+      checkboxContainer,
       createElement('button', 'material-icons drag', {}, 'more_vert'),
     );
     this.list.append(listItem);
@@ -54,9 +66,12 @@ export default class ToDoList {
         index,
       );
     });
+
+    LocalStorage.update(this.tasks);
   }
 
   updateTask(index, property, value) {
     this.tasks[index][property] = value;
+    LocalStorage.update(this.tasks);
   }
 }

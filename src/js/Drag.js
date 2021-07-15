@@ -1,6 +1,11 @@
 import DragData from './DragData.js';
 import { addListeners } from './library.js';
 
+function updateTarget(target, source) {
+  target.innerHTML = source.innerHTML;
+  target.querySelector('input').checked = source.checked;
+}
+
 export default class Drag {
   constructor() {
     this.prevTarget = '';
@@ -31,7 +36,7 @@ export default class Drag {
     // if dragging over new target, shift current content to previous target,
     // and empty current content
     if (this.prevTarget !== currTarget) {
-      Drag.updateTarget(
+      updateTarget(
         this.prevTarget,
         new DragData(currTarget.innerHTML, currTarget.querySelector('input').checked),
       );
@@ -46,22 +51,17 @@ export default class Drag {
   static drop(e, toDoList, checkboxList) {
     const dataTransfer = JSON.parse(e.dataTransfer.getData('attributes'));
 
-    Drag.updateTarget(
+    updateTarget(
       e.target,
       new DragData(dataTransfer.innerHTML, dataTransfer.checked === true),
     );
 
-    checkboxList.setListeners(toDoList);
-
     toDoList.reOrder();
+    checkboxList.setCheckboxes();
+    checkboxList.setListeners(toDoList);
   }
 
   setPrevTarget(element) {
     this.prevTarget = element;
-  }
-
-  static updateTarget(target, source) {
-    target.innerHTML = source.innerHTML;
-    target.querySelector('input').checked = source.checked;
   }
 }

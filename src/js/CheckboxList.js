@@ -2,12 +2,12 @@ import { addListeners } from './library.js';
 
 export default class CheckboxList {
   constructor() {
-    this.checkBoxes = document.querySelectorAll('li input');
+    this.checkboxes = document.querySelectorAll('li input');
   }
 
   setListeners(toDoList) {
     addListeners(
-      this.checkBoxes,
+      this.checkboxes,
       {
         change: (e) => this.changeStatus(e, toDoList),
       },
@@ -16,9 +16,13 @@ export default class CheckboxList {
 
   changeStatus(e, toDoList) {
     toDoList.updateTask(
-      Array.prototype.indexOf.call(this.checkBoxes, e.target),
+      Array.prototype.indexOf.call(this.checkboxes, e.target),
       'completed',
       e.target.checked,
     );
+  }
+
+  setCheckboxes() {
+    this.checkboxes = document.querySelectorAll('li input');
   }
 }

@@ -5,14 +5,11 @@ import Drag from './Drag.js';
 
 let toDoList;
 let checkboxList;
+let drag;
 
 function initList() {
   toDoList = new ToDoList();
-
-  [...Array(5).keys()].forEach((i) => {
-    toDoList.add(`Task${i}`, false, i);
-  });
-
+  toDoList.init();
   toDoList.sort();
   toDoList.populate();
   toDoList.setListItems();
@@ -24,7 +21,7 @@ function initCheckboxEvents() {
 }
 
 function initDragEvents() {
-  const drag = new Drag();
+  drag = new Drag();
   drag.setListeners(toDoList, checkboxList);
 }
 
