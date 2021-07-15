@@ -21,7 +21,7 @@ export default class Drag {
         dragstart: (e) => this.start(e),
         dragover: (e) => this.over(e),
         drop: (e) => Drag.drop(e),
-        dragend: (e) => this.end(e, toDoList, checkboxList)
+        dragend: (e) => this.end(e, toDoList, checkboxList),
       },
     );
   }
@@ -60,15 +60,14 @@ export default class Drag {
       e.target,
       new DragData(dataTransfer.innerHTML, dataTransfer.checked === true),
     );
-
   }
 
-  //in case list item is dropped outside of list
+  // in case list item is dropped outside of list
   end(e, toDoList, checkboxList) {
-    if (this.prevTarget.innerHTML == '') {
+    if (this.prevTarget.innerHTML === '') {
       updateTarget(
         this.prevTarget,
-        new DragData(this.draggedInnerHTML, this.draggedCheck === true)
+        new DragData(this.draggedInnerHTML, this.draggedCheck === true),
       );
     }
 
