@@ -1,6 +1,6 @@
 export default class LocalStorage {
   constructor() {
-    this.length = localStorage.length;
+    this.length = (LocalStorage.fetch() === null ? 0 : 1);
   }
 
   static fetch() {
