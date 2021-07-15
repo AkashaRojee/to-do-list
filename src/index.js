@@ -1,6 +1,6 @@
 import './style.scss';
 import ToDoList from './ToDoList.js';
-import {initDrag} from './drag.js';
+import {initDrag} from './Drag.js';
 
 function initialiseList() {
 
