@@ -1,10 +1,10 @@
 import Task from './Task.js';
-import {createElement} from './library.js';
+import { createElement } from './library.js';
 
 const list = document.querySelector('ul');
 
 function appendListItem(description) {
-  const listItem = createElement('li', 'flex-row space-between align-center', {draggable: true});
+  const listItem = createElement('li', 'flex-row space-between align-center', { draggable: true });
   const checkBoxContainer = createElement('div', 'flex-row align-center');
   checkBoxContainer.append(
     createElement('input', '', { type: 'checkbox' }),
@@ -34,5 +34,9 @@ export default class ToDoList {
     this.tasks
       .map((task) => task.description)
       .forEach((description) => appendListItem(description));
+  }
+
+  clear() {
+    this.tasks = [];
   }
 }

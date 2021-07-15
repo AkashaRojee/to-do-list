@@ -1,62 +1,68 @@
 import ToDoList from './ToDoList.js';
-import {addMultipleListeners} from './library.js'
 
-class Drag {
+function DragData(innerHTML, checked) {
+  this.innerHTML = innerHTML;
+  this.checked = checked;
+}
+
+export default class Drag {
   constructor() {
-    this.prevTarget;
+    this.prevTarget = '';
     this.listItems = document.querySelectorAll('li');
   }
 
-  updatePrevTarget(element) {
+  setPrevTarget(element) {
     this.prevTarget = element;
   }
 
+  updateTarget(target, source) {
+    target.innerHTML = source.innerHTML;
+    target.querySelector('input').checked = source.checked;
+  }
+
   start(e) {
-    this.updatePrevTarget(e.target);
-    e.dataTransfer.setData('text/html', e.target.innerHTML);
+    this.setPrevTarget(e.target);
+    e.dataTransfer.setData(
+      'attributes',
+      JSON.stringify(new DragData(e.target.innerHTML, e.target.querySelector('input').checked))
+    );
   }
 
   over(e) {
-    let currTarget = (e.target.parentNode.tagName === 'LI' ? e.target.parentNode : e.target);
+    const currTarget = (e.target.parentNode.tagName === 'LI' ? e.target.parentNode : e.target);
 
-    //if dragging over new target, shift current content to previous target, and empty current content
+    // if dragging over new target, shift current content to previous target,
+    // and empty current content
     if (this.prevTarget !== currTarget) {
-      [this.prevTarget.innerHTML, currTarget.innerHTML] = [currTarget.innerHTML, ''];
+      this.updateTarget(
+        this.prevTarget,
+        new DragData(currTarget.innerHTML, currTarget.querySelector('input').checked)
+      );
+      currTarget.innerHTML = '';
     }
-
-    this.updatePrevTarget(currTarget);
-    e.preventDefault(); //to allow drop at this location
+    this.setPrevTarget(currTarget);
+    e.preventDefault(); // to allow drop at this location
   }
 
-  drop(e) {
-    e.target.innerHTML = e.dataTransfer.getData('text/html');
-    this.sort();
+  drop(e, toDoList) {
+    let dataTransfer = JSON.parse(e.dataTransfer.getData('attributes'));
+    this.updateTarget(
+      e.target,
+      new DragData(dataTransfer.innerHTML, dataTransfer.checked === true)
+    )
+    this.reOrder(toDoList);
   }
 
-  sort() {
-    let toDoList = new ToDoList();
+  reOrder(toDoList) {
+    toDoList.clear();
     
     this.listItems.forEach((listItem, index) => {
       toDoList.add(
         listItem.querySelector('span').innerHTML,
         listItem.querySelector('input').checked,
-        index);
+        index,
+      );
     });
+    console.log(toDoList);
   }
-  
-}
-
-export function initDrag() {
-
-  let drag = new Drag();
-
-  addMultipleListeners(
-    drag.listItems,
-    {
-      dragstart: (e) => drag.start(e),
-      dragover: (e) => drag.over(e),
-      drop: (e) => drag.drop(e)
-    }
-  );
-
 }
