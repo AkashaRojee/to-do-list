@@ -1,10 +1,10 @@
 import './style.scss';
 import ToDoList from './ToDoList.js';
 import Drag from './Drag.js';
-import initCheckboxes from './checkbox.js'
+import initCheckboxes from './checkbox.js';
 import { addMultipleListeners } from './library.js';
 
-let toDoList; 
+let toDoList;
 
 function initList() {
   toDoList = new ToDoList();
@@ -15,13 +15,14 @@ function initList() {
 
   toDoList.sort();
   toDoList.populate();
+  toDoList.setListItems();
 }
 
 function initDragEvents() {
   const drag = new Drag();
 
   addMultipleListeners(
-    drag.listItems,
+    toDoList.listItems,
     {
       dragstart: (e) => drag.start(e),
       dragover: (e) => drag.over(e),
