@@ -9,6 +9,9 @@ function updateTarget(target, source) {
 export default class Drag {
   constructor() {
     this.prevTarget = '';
+    this.currTarget = '';
+    this.draggedInnerHTML = '';
+    this.draggedCheck = '';
   }
 
   setListeners(toDoList, checkboxList) {
@@ -17,7 +20,8 @@ export default class Drag {
       {
         dragstart: (e) => this.start(e),
         dragover: (e) => this.over(e),
-        drop: (e) => Drag.drop(e, toDoList, checkboxList),
+        drop: (e) => Drag.drop(e),
+        dragend: (e) => this.end(e, toDoList, checkboxList)
       },
     );
   }
@@ -28,6 +32,7 @@ export default class Drag {
       'attributes',
       JSON.stringify(new DragData(e.target.innerHTML, e.target.querySelector('input').checked)),
     );
+    this.setDraggedData(e.target.innerHTML, e.target.querySelector('input').checked);
   }
 
   over(e) {
@@ -48,13 +53,24 @@ export default class Drag {
     e.preventDefault(); // to allow drop at this location
   }
 
-  static drop(e, toDoList, checkboxList) {
+  static drop(e) {
     const dataTransfer = JSON.parse(e.dataTransfer.getData('attributes'));
 
     updateTarget(
       e.target,
       new DragData(dataTransfer.innerHTML, dataTransfer.checked === true),
     );
+
+  }
+
+  //in case list item is dropped outside of list
+  end(e, toDoList, checkboxList) {
+    if (this.prevTarget.innerHTML == '') {
+      updateTarget(
+        this.prevTarget,
+        new DragData(this.draggedInnerHTML, this.draggedCheck === true)
+      );
+    }
 
     toDoList.reOrder();
     checkboxList.setCheckboxes();
@@ -63,5 +79,10 @@ export default class Drag {
 
   setPrevTarget(element) {
     this.prevTarget = element;
+  }
+
+  setDraggedData(innerHTML, checked) {
+    this.draggedInnerHTML = innerHTML;
+    this.draggedCheck = checked;
   }
 }
