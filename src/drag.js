@@ -1,43 +1,34 @@
 import {addMultipleListeners} from './library.js'
 
-let itemToShift;
-let targetData;
-let savedTarget;
+let prevTarget;
 
-function updateItemToShift(element) {
-  itemToShift = element;
+function updatePrevTarget(element) {
+  prevTarget = element;
 }
 
+//Initialise previous target and data transfer
 function dragStart(e) {
-  updateItemToShift(e.target);
-  e.dataTransfer.effectAllowed = 'move';
+  updatePrevTarget(e.target);
   e.dataTransfer.setData('text/html', e.target.innerHTML);
 }
 
+//Save target being dragged over;
+//If dragging over new target, shift current content to previous target, and empty current content;
+//Update previous target
 function dragOver(e) {
+
   let currentTarget = (e.target.parentNode.tagName === 'LI' ? e.target.parentNode : e.target);
 
-  if (savedTarget === undefined ) {
-    savedTarget = currentTarget;
-  } else {
-    if (savedTarget !== currentTarget) {
-      savedTarget = currentTarget;
-      targetData = currentTarget.cloneNode(true).innerHTML;
-      currentTarget.innerHTML = '';
-      itemToShift.innerHTML = targetData;
-      updateItemToShift(currentTarget);
-    }
-    e.preventDefault();
+  if (prevTarget !== currentTarget) {
+    [prevTarget.innerHTML, currentTarget.innerHTML] = [currentTarget.innerHTML, ''];
   }
+  updatePrevTarget(currentTarget);
+  e.preventDefault(); //to allow drop at this location
 }
 
+//Update target content to transferred data
 function drop(e) {
-  e.dataTransfer.dropEffect = 'move';
-  if (e.target.tagName === 'LI') {
-    e.target.innerHTML = e.dataTransfer.getData('text/html');
-    savedTarget = undefined;
-    e.dataTransfer.clearData();
-  }
+  e.target.innerHTML = e.dataTransfer.getData('text/html');
 }
 
 export function initDrag() {
