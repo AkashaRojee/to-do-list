@@ -12,7 +12,6 @@ let crud;
 function initList() {
   toDoList = new ToDoList();
   toDoList.init();
-  // toDoList.sort();
 }
 
 function initCheckboxEvents() {

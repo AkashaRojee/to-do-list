@@ -6,7 +6,7 @@ export default class ToDoList {
   constructor() {
     this.tasks = [];
     this.list = document.querySelector('ul');
-    this.listItems = '';
+    this.listItems = document.querySelectorAll('li');
     this.ls = new LocalStorage();
   }
 
@@ -17,14 +17,11 @@ export default class ToDoList {
       });
       this.populate();
       this.setListItems();
-    // } else {
-    //   [...Array(5).keys()].forEach((i) => this.add(`Task ${i+1}`, false, i+1));
     }
   }
 
   add(description, completed, index) {
     this.tasks.push(new Task(description, completed, index));
-    // this.appendListItem(description, completed);
   }
 
   sort() {
@@ -40,10 +37,10 @@ export default class ToDoList {
 
   appendListItem(description, completed) {
     const listItem = createElement('li', 'flex-row space-between align-center', { draggable: true });
-    const checkboxContainer = createElement('div', 'flex-row align-center');
+    const checkboxContainer = createElement('div', 'flex-row align-center fill');
     checkboxContainer.append(
       createElement('input', '', { type: 'checkbox' }, '', { checked: completed }),
-      createElement('span', '', {}, description),
+      createElement('span', 'fill', { contenteditable: true }, description),
     );
     listItem.append(
       checkboxContainer,

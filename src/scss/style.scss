@@ -45,7 +45,8 @@ $default-border: 1px solid grey;
 
   button,
   input,
-  li {
+  li,
+  span {
     @extend %minimal;
   }
 
@@ -53,6 +54,16 @@ $default-border: 1px solid grey;
     font-style: italic;
     color: grey;
     margin-right: 10px;
+  }
+
+  span {
+    margin-right: 10px;
+    &:hover {
+      cursor: default;
+    }
+    &:focus-within {
+      cursor: text;
+    }
   }
 }
 
