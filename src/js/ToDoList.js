@@ -15,8 +15,6 @@ export default class ToDoList {
       LocalStorage.fetch().forEach((task) => {
         this.add(task.description, task.completed, task.index);
       });
-    } else {
-      [...Array(5).keys()].forEach((i) => this.add(`Task ${i}`, false, i));
     }
   }
 
