@@ -21,8 +21,8 @@ export default class Drag {
         dragstart: (e) => this.start(e),
         dragover: (e) => this.over(e),
         drop: (e) => Drag.drop(e),
-        dragend: (e) => this.end(e, toDoList, checkboxList),
-      },
+        dragend: (e) => this.end(e, toDoList, checkboxList)
+      }
     );
   }
 

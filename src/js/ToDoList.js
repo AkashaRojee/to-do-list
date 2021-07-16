@@ -15,11 +15,16 @@ export default class ToDoList {
       LocalStorage.fetch().forEach((task) => {
         this.add(task.description, task.completed, task.index);
       });
+      this.populate();
+      this.setListItems();
+    // } else {
+    //   [...Array(5).keys()].forEach((i) => this.add(`Task ${i+1}`, false, i+1));
     }
   }
 
   add(description, completed, index) {
     this.tasks.push(new Task(description, completed, index));
+    // this.appendListItem(description, completed);
   }
 
   sort() {
@@ -27,6 +32,7 @@ export default class ToDoList {
   }
 
   populate() {
+    this.list.innerHTML = '';
     this.tasks
       .map((task) => [task.description, task.completed])
       .forEach(([description, completed]) => this.appendListItem(description, completed));

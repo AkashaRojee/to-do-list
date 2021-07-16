@@ -21,6 +21,10 @@ $default-border: 1px solid grey;
   .material-icons {
     font-size: inherit;
     color: grey;
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
   }
 
   > div,
