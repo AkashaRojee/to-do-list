@@ -16,7 +16,6 @@ export default class ToDoList {
         this.add(task.description, task.completed, task.index);
       });
       this.populate();
-      this.setListItems();
     }
   }
 
@@ -33,6 +32,7 @@ export default class ToDoList {
     this.tasks
       .map((task) => [task.description, task.completed])
       .forEach(([description, completed]) => this.appendListItem(description, completed));
+    this.setListItems();
   }
 
   appendListItem(description, completed) {
@@ -64,7 +64,7 @@ export default class ToDoList {
       this.add(
         listItem.querySelector('span').innerHTML,
         listItem.querySelector('input').checked,
-        index,
+        index + 1,
       );
     });
 
@@ -74,5 +74,9 @@ export default class ToDoList {
   updateTask(index, property, value) {
     this.tasks[index][property] = value;
     LocalStorage.update(this.tasks);
+  }
+
+  deleteTask(index) {
+    this.tasks.splice(index, 1);
   }
 }

@@ -6,6 +6,7 @@ export default class CheckboxList {
   }
 
   setListeners(toDoList) {
+    this.setCheckboxes();
     addListeners(
       this.checkboxes,
       {

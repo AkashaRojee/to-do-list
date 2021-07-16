@@ -27,6 +27,19 @@ $default-border: 1px solid grey;
     }
   }
 
+  .drag {
+    &:hover {
+      color: black;
+      cursor: move;
+    }
+  }
+
+  .pointer {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   > div,
   li {
     padding: 10px;
@@ -64,12 +77,5 @@ $default-border: 1px solid grey;
     &:focus-within {
       cursor: text;
     }
-  }
-}
-
-.drag {
-  &:hover {
-    color: black;
-    cursor: move;
   }
 }
