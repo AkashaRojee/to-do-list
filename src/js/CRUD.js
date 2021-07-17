@@ -1,4 +1,4 @@
-import { addListeners } from './library';
+import { addListeners } from './library.js';
 import LocalStorage from './LocalStorage.js';
 
 export default class CRUD {
@@ -7,40 +7,38 @@ export default class CRUD {
     this.addButton = this.textbox.nextElementSibling;
     this.spans = document.querySelectorAll('span');
     this.deleteButton = '';
-    this.clearButton = document.querySelector('.btn-clear')
+    this.clearButton = document.querySelector('.btn-clear');
   }
 
   setListeners(toDoList, checkboxList, drag) {
-
     this.textbox.addEventListener(
       'keydown',
-      (e) => this.addNewTask(e, toDoList, checkboxList, drag)
+      (e) => this.addNewTask(e, toDoList, checkboxList, drag),
     );
 
     this.addButton.addEventListener(
       'click',
-      (e) => this.addNewTask(e, toDoList, checkboxList, drag)
-    )
+      (e) => this.addNewTask(e, toDoList, checkboxList, drag),
+    );
 
     this.setSpans();
     addListeners(
       this.spans,
       {
         focusin: (e) => this.toggleDeleteButton(e),
-        focusout: (e) => this.editTask(e, toDoList, checkboxList, drag)
-      }
+        focusout: (e) => this.editTask(e, toDoList, checkboxList, drag),
+      },
     );
 
     this.clearButton.addEventListener(
       'click',
-      () => this.clearCompleted(toDoList, checkboxList, drag)
+      () => this.clearCompleted(toDoList, checkboxList, drag),
     );
   }
 
   addNewTask(e, toDoList, checkboxList, drag) {
-    console.log(e.type);
     if (this.textbox.value !== '' && (
-      (e.type ==='keydown' && e.key === 'Enter') || (e.type === 'click'))) {
+      (e.type === 'keydown' && e.key === 'Enter') || (e.type === 'click'))) {
       toDoList.add(this.textbox.value, false, toDoList.tasks.length + 1);
       LocalStorage.update(toDoList.tasks);
       toDoList.populate();
@@ -51,30 +49,24 @@ export default class CRUD {
   }
 
   toggleDeleteButton(e) {
-    console.log(e);
     if (e.type !== '') this.deleteButton = e.target.parentNode.nextSibling;
     this.deleteButton.innerHTML = (e.type === 'focusin' ? 'delete' : 'more_vert');
     this.deleteButton.classList.toggle('pointer');
   }
 
   editTask(e, toDoList, checkboxList, drag) {
-    console.log('focusout');
-
     if (e.relatedTarget === this.deleteButton) {
-
       toDoList.deleteTask(Array.prototype.indexOf.call(this.spans, e.target));
       this.refresh(toDoList, checkboxList, drag);
-      
     } else {
-
       this.toggleDeleteButton(e);
 
       toDoList.updateTask(
         Array.prototype.indexOf.call(this.spans, e.target),
         'description',
-        e.target.innerHTML
+        e.target.innerHTML,
       );
-    }    
+    }
   }
 
   clearCompleted(toDoList, checkboxList, drag) {

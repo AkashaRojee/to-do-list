@@ -9,7 +9,6 @@ function updateTarget(target, source) {
 export default class Drag {
   constructor() {
     this.prevTarget = '';
-    this.currTarget = '';
     this.draggedInnerHTML = '';
     this.draggedCheck = '';
   }
@@ -21,8 +20,8 @@ export default class Drag {
         dragstart: (e) => this.start(e, crud),
         dragover: (e) => this.over(e),
         drop: (e) => Drag.drop(e),
-        dragend: (e) => this.end(e, toDoList, checkboxList, crud)
-      }
+        dragend: (e) => this.end(e, toDoList, checkboxList, crud),
+      },
     );
   }
 
@@ -37,13 +36,11 @@ export default class Drag {
   }
 
   over(e) {
-    const currTarget = (
-      e.target.parentNode.tagName === 'LI' ?
-      e.target.parentNode : (
-        e.target.parentNode.tagName === 'DIV' ?
-        e.target.parentNode.parentNode :
-        e.target)
-      );
+    let currTarget;
+
+    if (e.target.parentNode.tagName === 'LI') currTarget = e.target.parentNode;
+    else if (e.target.parentNode.tagName === 'DIV') currTarget = e.target.parentNode.parentNode;
+    else currTarget = e.target;
 
     // if dragging over new target, shift current content to previous target,
     // and empty current content

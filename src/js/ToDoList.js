@@ -81,6 +81,6 @@ export default class ToDoList {
   }
 
   filterTasks() {
-    this.tasks = this.tasks.filter(task => task.completed === false);
+    this.tasks = this.tasks.filter((task) => task.completed === false);
   }
 }

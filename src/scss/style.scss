@@ -21,6 +21,7 @@ $default-border: 1px solid grey;
   .material-icons {
     font-size: inherit;
     color: grey;
+
     &:hover {
       color: black;
       cursor: pointer;
@@ -78,9 +79,11 @@ $default-border: 1px solid grey;
 
   span {
     margin-right: 10px;
+
     &:hover {
       cursor: default;
     }
+
     &:focus-within {
       cursor: text;
     }
