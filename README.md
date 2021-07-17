@@ -26,6 +26,11 @@ Things done so far:
 - Implement Web Storage API for local storage of tasks
 - Refactor modules using classes
 
+### 3. Implement CRUD
+
+- Allow user to add, edit, and delete tasks
+- Make UI elements functional
+
 ## Built With
 
 - Major languages: HTML, SCSS, JS
