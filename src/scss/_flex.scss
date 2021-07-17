@@ -30,6 +30,10 @@
   @include justify($justify-property: space-between);
 }
 
+.justify-center {
+  @include justify($justify-property: center);
+}
+
 .align-center {
   @include align($align-property: center);
 }

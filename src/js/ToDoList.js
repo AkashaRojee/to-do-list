@@ -79,4 +79,8 @@ export default class ToDoList {
   deleteTask(index) {
     this.tasks.splice(index, 1);
   }
+
+  filterTasks() {
+    this.tasks = this.tasks.filter(task => task.completed === false);
+  }
 }

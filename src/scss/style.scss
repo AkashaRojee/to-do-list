@@ -36,6 +36,7 @@ $default-border: 1px solid grey;
 
   .pointer {
     &:hover {
+      color: black;
       cursor: pointer;
     }
   }
@@ -52,15 +53,21 @@ $default-border: 1px solid grey;
     min-height: 40px;
   }
 
-  button {
-    color: grey;
-  }
-
   button,
   input,
   li,
   span {
     @extend %minimal;
+  }
+
+  button {
+    color: grey;
+  }
+
+  .btn-clear {
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   input {

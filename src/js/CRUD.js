@@ -6,6 +6,7 @@ export default class CRUD {
     this.textbox = document.querySelector('input[type="text"]');
     this.spans = document.querySelectorAll('span');
     this.deleteButton = '';
+    this.clearButton = document.querySelector('.btn-clear')
   }
 
   setListeners(toDoList, checkboxList, drag) {
@@ -21,6 +22,11 @@ export default class CRUD {
         focusin: (e) => this.toggleDeleteButton(e),
         focusout: (e) => this.editTask(e, toDoList, checkboxList, drag)
       }
+    );
+
+    this.clearButton.addEventListener(
+      'click',
+      () => this.clearCompleted(toDoList, checkboxList, drag)
     );
   }
 
@@ -45,9 +51,7 @@ export default class CRUD {
     if (e.relatedTarget === this.deleteButton) {
 
       toDoList.deleteTask(Array.prototype.indexOf.call(this.spans, e.target));
-      toDoList.populate();
-      toDoList.reOrder();
-      this.addAllListeners(toDoList, checkboxList, drag);
+      this.refresh();
       
     } else {
 
@@ -59,6 +63,17 @@ export default class CRUD {
         e.target.innerHTML
       );
     }    
+  }
+
+  clearCompleted(toDoList, checkboxList, drag) {
+    toDoList.filterTasks();
+    this.refresh(toDoList, checkboxList, drag);
+  }
+
+  refresh(toDoList, checkboxList, drag) {
+    toDoList.populate();
+    toDoList.reOrder();
+    this.addAllListeners(toDoList, checkboxList, drag);
   }
 
   addAllListeners(toDoList, checkboxList, drag) {
