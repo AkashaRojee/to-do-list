@@ -14,19 +14,20 @@ export default class Drag {
     this.draggedCheck = '';
   }
 
-  setListeners(toDoList, checkboxList) {
+  setListeners(toDoList, checkboxList, crud) {
     addListeners(
       toDoList.listItems,
       {
-        dragstart: (e) => this.start(e),
+        dragstart: (e) => this.start(e, crud),
         dragover: (e) => this.over(e),
         drop: (e) => Drag.drop(e),
-        dragend: (e) => this.end(e, toDoList, checkboxList)
+        dragend: (e) => this.end(e, toDoList, checkboxList, crud)
       }
     );
   }
 
-  start(e) {
+  start(e, crud) {
+    if (e.target.querySelector('button').innerHTML === 'delete') crud.toggleDeleteButton(new Event(''));
     this.setPrevTarget(e.target);
     e.dataTransfer.setData(
       'attributes',
@@ -36,7 +37,13 @@ export default class Drag {
   }
 
   over(e) {
-    const currTarget = (e.target.parentNode.tagName === 'LI' ? e.target.parentNode : e.target);
+    const currTarget = (
+      e.target.parentNode.tagName === 'LI' ?
+      e.target.parentNode : (
+        e.target.parentNode.tagName === 'DIV' ?
+        e.target.parentNode.parentNode :
+        e.target)
+      );
 
     // if dragging over new target, shift current content to previous target,
     // and empty current content
@@ -63,7 +70,7 @@ export default class Drag {
   }
 
   // in case list item is dropped outside of list
-  end(e, toDoList, checkboxList) {
+  end(e, toDoList, checkboxList, crud) {
     if (this.prevTarget.innerHTML === '') {
       updateTarget(
         this.prevTarget,
@@ -74,6 +81,7 @@ export default class Drag {
     toDoList.reOrder();
     checkboxList.setCheckboxes();
     checkboxList.setListeners(toDoList);
+    crud.setListeners(toDoList, checkboxList, this);
   }
 
   setPrevTarget(element) {

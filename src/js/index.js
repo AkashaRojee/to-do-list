@@ -10,26 +10,30 @@ let drag;
 let crud;
 
 function initList() {
-  toDoList = new ToDoList();
   toDoList.init();
 }
 
 function initCheckboxEvents() {
-  checkboxList = new CheckboxList();
   checkboxList.setListeners(toDoList);
 }
 
 function initDragEvents() {
-  drag = new Drag();
-  drag.setListeners(toDoList, checkboxList);
+  drag.setListeners(toDoList, checkboxList, crud);
 }
 
 function initCRUD() {
-  crud = new CRUD();
   crud.setListeners(toDoList, checkboxList, drag);
 }
 
+function initObjects() {
+  toDoList = new ToDoList();
+  checkboxList = new CheckboxList();
+  drag = new Drag();
+  crud = new CRUD();
+}
+
 function init() {
+  initObjects();
   initList();
   initCheckboxEvents();
   initDragEvents();

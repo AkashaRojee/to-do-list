@@ -4,6 +4,7 @@ import LocalStorage from './LocalStorage.js';
 export default class CRUD {
   constructor() {
     this.textbox = document.querySelector('input[type="text"]');
+    this.addButton = this.textbox.nextElementSibling;
     this.spans = document.querySelectorAll('span');
     this.deleteButton = '';
     this.clearButton = document.querySelector('.btn-clear')
@@ -16,6 +17,12 @@ export default class CRUD {
       (e) => this.addNewTask(e, toDoList, checkboxList, drag)
     );
 
+    this.addButton.addEventListener(
+      'click',
+      (e) => this.addNewTask(e, toDoList, checkboxList, drag)
+    )
+
+    this.setSpans();
     addListeners(
       this.spans,
       {
@@ -31,27 +38,32 @@ export default class CRUD {
   }
 
   addNewTask(e, toDoList, checkboxList, drag) {
-    if (e.key === 'Enter') {
-      toDoList.add(e.target.value, false, toDoList.tasks.length + 1);
+    console.log(e.type);
+    if (this.textbox.value !== '' && (
+      (e.type ==='keydown' && e.key === 'Enter') || (e.type === 'click'))) {
+      toDoList.add(this.textbox.value, false, toDoList.tasks.length + 1);
       LocalStorage.update(toDoList.tasks);
       toDoList.populate();
       this.addAllListeners(toDoList, checkboxList, drag);
       e.stopImmediatePropagation();
+      this.textbox.value = '';
     }
   }
 
   toggleDeleteButton(e) {
-    this.deleteButton = e.target.parentNode.nextSibling;
+    console.log(e);
+    if (e.type !== '') this.deleteButton = e.target.parentNode.nextSibling;
     this.deleteButton.innerHTML = (e.type === 'focusin' ? 'delete' : 'more_vert');
     this.deleteButton.classList.toggle('pointer');
   }
 
   editTask(e, toDoList, checkboxList, drag) {
+    console.log('focusout');
 
     if (e.relatedTarget === this.deleteButton) {
 
       toDoList.deleteTask(Array.prototype.indexOf.call(this.spans, e.target));
-      this.refresh();
+      this.refresh(toDoList, checkboxList, drag);
       
     } else {
 
@@ -78,7 +90,7 @@ export default class CRUD {
 
   addAllListeners(toDoList, checkboxList, drag) {
     checkboxList.setListeners(toDoList);
-    drag.setListeners(toDoList, checkboxList);
+    drag.setListeners(toDoList, checkboxList, this);
     this.setSpans();
     this.setListeners(toDoList, checkboxList, drag);
   }
