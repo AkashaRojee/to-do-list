@@ -13,8 +13,8 @@ export default class ToDoList {
 
   init() {
     if (this.ls.length > 0) {
-      LocalStorage.fetch().forEach((task) => {
-        this.add(task.description, task.completed, task.index);
+      LocalStorage.fetch().forEach(({description, completed, index}) => {
+        this.add(description, completed, index);
       });
       this.populate();
     }

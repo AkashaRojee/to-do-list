@@ -57,11 +57,11 @@ export default class Drag {
   }
 
   static drop(e) {
-    const dataTransfer = JSON.parse(e.dataTransfer.getData('attributes'));
+    const {innerHTML, checked} = JSON.parse(e.dataTransfer.getData('attributes'));
 
     updateTarget(
       e.target,
-      new DragData(dataTransfer.innerHTML, dataTransfer.checked === true),
+      new DragData(innerHTML, checked === true),
     );
   }
 
