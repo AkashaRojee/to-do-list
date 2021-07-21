@@ -75,8 +75,9 @@ export default class CRUD {
   }
 
   refresh(toDoList, checkboxList, drag) {
-    toDoList.populate();
-    toDoList.reOrder();
+    toDoList
+      .populate()
+      .reOrder();
     this.addAllListeners(toDoList, checkboxList, drag);
   }
 

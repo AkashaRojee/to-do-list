@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@0;1&display=swap");
+.flex-col, .flex-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.flex-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.space-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.align-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.fill {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.container button,
+.container input,
+.container li,
+.container span {
+  list-style: none;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  width: 85%;
+  margin: 50px auto;
+  border: 1px solid grey;
+  -webkit-box-shadow: 0 5px 10px grey;
+          box-shadow: 0 5px 10px grey;
+}
+
+.container .material-icons {
+  font-size: inherit;
+  color: grey;
+}
+
+.container .material-icons:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.container .drag:hover {
+  color: black;
+  cursor: move;
+}
+
+.container .pointer:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.container > div,
+.container li {
+  padding: 10px;
+  border-bottom: 1px solid grey;
+}
+
+.container > div,
+.container li,
+.container > button {
+  min-height: 40px;
+}
+
+.container button {
+  color: grey;
+}
+
+.container .btn-clear:hover {
+  text-decoration: underline;
+}
+
+.container input {
+  font-style: italic;
+  color: grey;
+  margin-right: 10px;
+}
+
+.container span {
+  margin-right: 10px;
+}
+
+.container span:hover {
+  cursor: default;
+}
+
+.container span:focus-within {
+  cursor: text;
+}
+/*# sourceMappingURL=style.css.map */

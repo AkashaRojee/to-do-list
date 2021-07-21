@@ -33,6 +33,7 @@ export default class ToDoList {
       .map((task) => [task.description, task.completed])
       .forEach(([description, completed]) => this.appendListItem(description, completed));
     this.setListItems();
+    return this;
   }
 
   appendListItem(description, completed) {
@@ -69,6 +70,8 @@ export default class ToDoList {
     });
 
     LocalStorage.update(this.tasks);
+
+    return this;
   }
 
   updateTask(index, property, value) {

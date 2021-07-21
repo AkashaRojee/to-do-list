@@ -76,8 +76,9 @@ export default class Drag {
     }
 
     toDoList.reOrder();
-    checkboxList.setCheckboxes();
-    checkboxList.setListeners(toDoList);
+    checkboxList
+      .setCheckboxes()
+      .setListeners(toDoList);
     crud.setListeners(toDoList, checkboxList, this);
   }
 

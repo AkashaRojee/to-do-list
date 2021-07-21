@@ -13,6 +13,7 @@ export default class CheckboxList {
         change: (e) => this.changeStatus(e, toDoList),
       },
     );
+    return this;
   }
 
   changeStatus(e, toDoList) {
@@ -25,5 +26,6 @@ export default class CheckboxList {
 
   setCheckboxes() {
     this.checkboxes = document.querySelectorAll('li input');
+    return this;
   }
 }
