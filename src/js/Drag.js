@@ -1,10 +1,6 @@
 import DragData from './DragData.js';
 import { addListeners } from './library.js';
-
-function updateTarget(target, source) {
-  target.innerHTML = source.innerHTML;
-  target.querySelector('input').checked = source.checked;
-}
+import { updateTarget, findParent, getInnerHTML, queryElement, getChecked } from './DOM.js';
 
 export default class Drag {
   constructor() {
@@ -26,31 +22,34 @@ export default class Drag {
   }
 
   start(e, crud) {
-    if (e.target.querySelector('button').innerHTML === 'delete') crud.toggleDeleteButton(new Event(''));
+    
+    const rowButton = queryElement(e.target, 'button');
+    const rowCheckbox = queryElement(e.target, 'input');
+    const checkboxStatus = getChecked(rowCheckbox);
+
+    if (getInnerHTML(rowButton) === 'delete') crud.toggleDeleteButton(new Event(''));
+
+    const rowInnerHTML = getInnerHTML(e.target);
     this.setPrevTarget(e.target);
     e.dataTransfer.setData(
       'attributes',
-      JSON.stringify(new DragData(e.target.innerHTML, e.target.querySelector('input').checked)),
+      JSON.stringify(new DragData(rowInnerHTML, checkboxStatus)),
     );
-    this.setDraggedData(e.target.innerHTML, e.target.querySelector('input').checked);
+    this.setDraggedData(rowInnerHTML, checkboxStatus);
   }
 
   over(e) {
-    let currTarget;
-
-    if (e.target.parentNode.tagName === 'LI') currTarget = e.target.parentNode;
-    else if (e.target.parentNode.tagName === 'DIV') currTarget = e.target.parentNode.parentNode;
-    else currTarget = e.target;
+    let currTarget = findParent(e.target)
 
     // if dragging over new target, shift current content to previous target,
     // and empty current content
     if (this.prevTarget !== currTarget) {
       updateTarget(
         this.prevTarget,
-        new DragData(currTarget.innerHTML, currTarget.querySelector('input').checked),
+        new DragData(getInnerHTML(currTarget), getChecked(queryElement(currTarget, 'input'))),
       );
 
-      currTarget.innerHTML = '';
+      updateTarget(currTarget, {innerHTML: ''});
     }
 
     this.setPrevTarget(currTarget);
@@ -68,7 +67,7 @@ export default class Drag {
 
   // in case list item is dropped outside of list
   end(e, toDoList, checkboxList, crud) {
-    if (this.prevTarget.innerHTML === '') {
+    if (getInnerHTML(this.prevTarget) === '') {
       updateTarget(
         this.prevTarget,
         new DragData(this.draggedInnerHTML, this.draggedCheck === true),

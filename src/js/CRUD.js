@@ -1,14 +1,15 @@
 import { addListeners } from './library.js';
 import LocalStorage from './LocalStorage.js';
 import SuperArray from './SuperArray.js';
+import { queryElement, queryElements, getInnerHTML, setInnerHTML, getValue, setValue, toggleClass, getParent, getNextSibling, getNextElementSibling } from './DOM.js';
 
 export default class CRUD {
   constructor() {
-    this.textbox = document.querySelector('input[type="text"]');
-    this.addButton = this.textbox.nextElementSibling;
-    this.spans = document.querySelectorAll('span');
+    this.textbox = queryElement(document, 'input[type="text"]');
+    this.addButton = getNextElementSibling(this.textbox);
+    this.spans = queryElements(document, 'span');
     this.deleteButton = '';
-    this.clearButton = document.querySelector('.btn-clear');
+    this.clearButton = queryElement(document, '.btn-clear');
   }
 
   setListeners(toDoList, checkboxList, drag) {
@@ -38,21 +39,21 @@ export default class CRUD {
   }
 
   addNewTask(e, toDoList, checkboxList, drag) {
-    if (this.textbox.value !== '' && (
+    if (getValue(this.textbox) !== '' && (
       (e.type === 'keydown' && e.key === 'Enter') || (e.type === 'click'))) {
-      toDoList.add(this.textbox.value, false, toDoList.tasks.length + 1);
+      toDoList.add(getValue(this.textbox), false, toDoList.tasks.length + 1);
       LocalStorage.update(toDoList.tasks);
       toDoList.populate();
       this.addAllListeners(toDoList, checkboxList, drag);
       e.stopImmediatePropagation();
-      this.textbox.value = '';
+      setValue(this.textbox, '');
     }
   }
 
   toggleDeleteButton(e) {
-    if (e.type !== '') this.deleteButton = e.target.parentNode.nextSibling;
-    this.deleteButton.innerHTML = (e.type === 'focusin' ? 'delete' : 'more_vert');
-    this.deleteButton.classList.toggle('pointer');
+    if (e.type !== '') this.deleteButton = getNextSibling(getParent(e.target));
+    setInnerHTML(this.deleteButton, (e.type === 'focusin' ? 'delete' : 'more_vert'));
+    toggleClass(this.deleteButton, 'pointer');
   }
 
   editTask(e, toDoList, checkboxList, drag) {
@@ -66,7 +67,7 @@ export default class CRUD {
       toDoList.updateTask(
         spanArray.indexOfElement(e.target),
         'description',
-        e.target.innerHTML,
+        getInnerHTML(e.target),
       );
     }
   }
@@ -91,6 +92,6 @@ export default class CRUD {
   }
 
   setSpans() {
-    this.spans = document.querySelectorAll('span');
+    this.spans = queryElements(document, 'span');
   }
 }

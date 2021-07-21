@@ -1,12 +1,13 @@
 import Task from './Task.js';
 import LocalStorage from './LocalStorage.js';
 import { createElement } from './library.js';
+import { getInnerHTML, getChecked, queryElement, queryElements } from './DOM.js';
 
 export default class ToDoList {
   constructor() {
     this.tasks = [];
-    this.list = document.querySelector('ul');
-    this.listItems = document.querySelectorAll('li');
+    this.list = queryElement(document, 'ul');
+    this.listItems = queryElements(document, 'li');
     this.ls = new LocalStorage();
   }
 
@@ -51,7 +52,7 @@ export default class ToDoList {
   }
 
   setListItems() {
-    this.listItems = document.querySelectorAll('li');
+    this.listItems = queryElements(document, 'li');
   }
 
   clear() {
@@ -63,8 +64,8 @@ export default class ToDoList {
 
     this.listItems.forEach((listItem, index) => {
       this.add(
-        listItem.querySelector('span').innerHTML,
-        listItem.querySelector('input').checked,
+        getInnerHTML(queryElement(listItem, 'span')),
+        getChecked(queryElement(listItem, 'input')),
         index + 1,
       );
     });

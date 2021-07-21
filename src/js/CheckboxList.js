@@ -1,9 +1,10 @@
 import { addListeners } from './library.js';
 import SuperArray from './SuperArray.js';
+import { getChecked, queryElements } from './DOM.js';
 
 export default class CheckboxList {
   constructor() {
-    this.checkboxes = document.querySelectorAll('li input');
+    this.checkboxes = queryElements(document, 'li input');;
   }
 
   setListeners(toDoList) {
@@ -22,12 +23,12 @@ export default class CheckboxList {
     toDoList.updateTask(
       checkboxArray.indexOfElement(e.target),
       'completed',
-      e.target.checked,
+      getChecked(e.target),
     );
   }
 
   setCheckboxes() {
-    this.checkboxes = document.querySelectorAll('li input');
+    this.checkboxes = queryElements(document, 'li input');
     return this;
   }
 }
