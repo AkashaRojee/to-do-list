@@ -1,5 +1,6 @@
 import { addListeners } from './library.js';
 import LocalStorage from './LocalStorage.js';
+import SuperArray from './SuperArray.js';
 
 export default class CRUD {
   constructor() {
@@ -55,14 +56,15 @@ export default class CRUD {
   }
 
   editTask(e, toDoList, checkboxList, drag) {
+    const spanArray = new SuperArray(...this.spans);
     if (e.relatedTarget === this.deleteButton) {
-      toDoList.deleteTask(Array.prototype.indexOf.call(this.spans, e.target));
+      toDoList.deleteTask(spanArray.indexOfElement(e.target));
       this.refresh(toDoList, checkboxList, drag);
     } else {
       this.toggleDeleteButton(e);
 
       toDoList.updateTask(
-        Array.prototype.indexOf.call(this.spans, e.target),
+        spanArray.indexOfElement(e.target),
         'description',
         e.target.innerHTML,
       );

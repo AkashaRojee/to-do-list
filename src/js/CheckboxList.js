@@ -1,4 +1,5 @@
 import { addListeners } from './library.js';
+import SuperArray from './SuperArray.js';
 
 export default class CheckboxList {
   constructor() {
@@ -17,8 +18,9 @@ export default class CheckboxList {
   }
 
   changeStatus(e, toDoList) {
+    const checkboxArray = new SuperArray(...this.checkboxes);
     toDoList.updateTask(
-      Array.prototype.indexOf.call(this.checkboxes, e.target),
+      checkboxArray.indexOfElement(e.target),
       'completed',
       e.target.checked,
     );
