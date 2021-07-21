@@ -5,8 +5,8 @@ export function updateTarget(target, source) {
 
 export function findParent(target) {
   if (target.parentNode.tagName === 'LI') return target.parentNode;
-  else if (target.parentNode.tagName === 'DIV') return target.parentNode.parentNode;
-  else return target;
+  if (target.parentNode.tagName === 'DIV') return target.parentNode.parentNode;
+  return target;
 }
 
 export function getInnerHTML(element) {

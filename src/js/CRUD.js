@@ -1,7 +1,10 @@
 import { addListeners } from './library.js';
 import LocalStorage from './LocalStorage.js';
 import SuperArray from './SuperArray.js';
-import { queryElement, queryElements, getInnerHTML, setInnerHTML, getValue, setValue, toggleClass, getParent, getNextSibling, getNextElementSibling } from './DOM.js';
+import {
+  queryElement, queryElements, getInnerHTML, setInnerHTML, getValue,
+  setValue, toggleClass, getParent, getNextSibling, getNextElementSibling,
+} from './DOM.js';
 
 export default class CRUD {
   constructor() {

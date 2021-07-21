@@ -1,7 +1,9 @@
 import Task from './Task.js';
 import LocalStorage from './LocalStorage.js';
 import { createElement } from './library.js';
-import { getInnerHTML, getChecked, queryElement, queryElements } from './DOM.js';
+import {
+  getInnerHTML, getChecked, queryElement, queryElements,
+} from './DOM.js';
 
 export default class ToDoList {
   constructor() {
@@ -13,7 +15,7 @@ export default class ToDoList {
 
   init() {
     if (this.ls.length > 0) {
-      LocalStorage.fetch().forEach(({description, completed, index}) => {
+      LocalStorage.fetch().forEach(({ description, completed, index }) => {
         this.add(description, completed, index);
       });
       this.populate();

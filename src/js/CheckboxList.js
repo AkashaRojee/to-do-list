@@ -4,7 +4,7 @@ import { getChecked, queryElements } from './DOM.js';
 
 export default class CheckboxList {
   constructor() {
-    this.checkboxes = queryElements(document, 'li input');;
+    this.checkboxes = queryElements(document, 'li input');
   }
 
   setListeners(toDoList) {

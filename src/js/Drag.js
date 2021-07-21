@@ -1,6 +1,8 @@
 import DragData from './DragData.js';
 import { addListeners } from './library.js';
-import { updateTarget, findParent, getInnerHTML, queryElement, getChecked } from './DOM.js';
+import {
+  updateTarget, findParent, getInnerHTML, queryElement, getChecked,
+} from './DOM.js';
 
 export default class Drag {
   constructor() {
@@ -22,7 +24,6 @@ export default class Drag {
   }
 
   start(e, crud) {
-    
     const rowButton = queryElement(e.target, 'button');
     const rowCheckbox = queryElement(e.target, 'input');
     const checkboxStatus = getChecked(rowCheckbox);
@@ -39,7 +40,7 @@ export default class Drag {
   }
 
   over(e) {
-    let currTarget = findParent(e.target)
+    const currTarget = findParent(e.target);
 
     // if dragging over new target, shift current content to previous target,
     // and empty current content
@@ -49,7 +50,7 @@ export default class Drag {
         new DragData(getInnerHTML(currTarget), getChecked(queryElement(currTarget, 'input'))),
       );
 
-      updateTarget(currTarget, {innerHTML: ''});
+      updateTarget(currTarget, { innerHTML: '' });
     }
 
     this.setPrevTarget(currTarget);
@@ -57,7 +58,7 @@ export default class Drag {
   }
 
   static drop(e) {
-    const {innerHTML, checked} = JSON.parse(e.dataTransfer.getData('attributes'));
+    const { innerHTML, checked } = JSON.parse(e.dataTransfer.getData('attributes'));
 
     updateTarget(
       e.target,
