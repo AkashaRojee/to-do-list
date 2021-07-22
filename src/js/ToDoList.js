@@ -8,8 +8,8 @@ import {
 export default class ToDoList {
   constructor() {
     this.tasks = [];
-    // this.list = queryElement(document, 'ul');
-    // this.listItems = queryElements(document, 'li');
+    this.list = queryElement(document, 'ul');
+    this.listItems = queryElements(document, 'li');
     // this.ls = new LocalStorage();
   }
 
