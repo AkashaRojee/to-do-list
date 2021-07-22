@@ -10,7 +10,7 @@ export default class ToDoList {
     this.tasks = [];
     this.list = queryElement(document, 'ul');
     this.listItems = queryElements(document, 'li');
-    // this.ls = new LocalStorage();
+    this.ls = new LocalStorage();
   }
 
   init() {

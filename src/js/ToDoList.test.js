@@ -13,6 +13,7 @@ test('add() adds new task to empty tasks array', () => {
     '',
     'text/html'
   ).querySelector('li');
+  // expected.ls = new LocalStorageMock();
 
   let result = new ToDoList();
   result.add('Task 1', false, 0);
