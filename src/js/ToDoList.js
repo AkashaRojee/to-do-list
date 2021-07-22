@@ -48,7 +48,7 @@ export default class ToDoList {
     );
     listItem.append(
       checkboxContainer,
-      createElement('button', 'material-icons drag', {}, 'more_vert'),
+      createElement('button', 'material-icons drag', { type: 'button' }, 'more_vert'),
     );
     this.list.append(listItem);
   }

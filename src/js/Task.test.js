@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import Task from './Task.js';
 
 test('Create Task object', () => {
@@ -6,7 +5,7 @@ test('Create Task object', () => {
 
   const result = new Task('Task name', true, 3);
 
-  //use toEqual to check for properties of object (deep equality)
-  //instead of toBe which checks if objects are the same
+  // use toEqual to check for properties of object (deep equality)
+  // instead of toBe which checks if objects are the same
   expect(result).toEqual(expected);
 });

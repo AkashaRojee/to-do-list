@@ -44,12 +44,12 @@ export default class CRUD {
   addNewTask(e, toDoList, checkboxList, drag) {
     if (getValue(this.textbox) !== '' && (
       (e.type === 'keydown' && e.key === 'Enter') || (e.type === 'click'))) {
-        toDoList.add(getValue(this.textbox), false, toDoList.tasks.length + 1);
-        LocalStorage.update(toDoList.tasks);
-        toDoList.populate();
-        this.addAllListeners(toDoList, checkboxList, drag);
-        e.stopImmediatePropagation();
-        setValue(this.textbox, '');
+      toDoList.add(getValue(this.textbox), false, toDoList.tasks.length + 1);
+      LocalStorage.update(toDoList.tasks);
+      toDoList.populate();
+      this.addAllListeners(toDoList, checkboxList, drag);
+      e.stopImmediatePropagation();
+      setValue(this.textbox, '');
     }
   }
 
@@ -62,8 +62,7 @@ export default class CRUD {
   editTask(e, toDoList, checkboxList, drag) {
     const spanArray = new SuperArray(...this.spans);
     if (e.relatedTarget === this.deleteButton) {
-      toDoList.deleteTask(spanArray.indexOfElement(e.target));
-      this.refresh(toDoList, checkboxList, drag);
+      this.deleteTask(e, spanArray, toDoList, checkboxList, drag);
     } else {
       this.toggleDeleteButton(e);
 
@@ -73,6 +72,11 @@ export default class CRUD {
         getInnerHTML(e.target),
       );
     }
+  }
+
+  deleteTask(e, spanArray, toDoList, checkboxList, drag) {
+    toDoList.deleteTask(spanArray.indexOfElement(e.target));
+    this.refresh(toDoList, checkboxList, drag);
   }
 
   clearCompleted(toDoList, checkboxList, drag) {

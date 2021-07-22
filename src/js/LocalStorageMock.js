@@ -24,5 +24,4 @@ export default class LocalStorageMock {
   setItem(keyName, keyValue) {
     this.store[keyName] = keyValue;
   }
-
 }
