@@ -44,12 +44,12 @@ export default class CRUD {
   addNewTask(e, toDoList, checkboxList, drag) {
     if (getValue(this.textbox) !== '' && (
       (e.type === 'keydown' && e.key === 'Enter') || (e.type === 'click'))) {
-      toDoList.add(getValue(this.textbox), false, toDoList.tasks.length + 1);
-      LocalStorage.update(toDoList.tasks);
-      toDoList.populate();
-      this.addAllListeners(toDoList, checkboxList, drag);
-      e.stopImmediatePropagation();
-      setValue(this.textbox, '');
+        toDoList.add(getValue(this.textbox), false, toDoList.tasks.length + 1);
+        LocalStorage.update(toDoList.tasks);
+        toDoList.populate();
+        this.addAllListeners(toDoList, checkboxList, drag);
+        e.stopImmediatePropagation();
+        setValue(this.textbox, '');
     }
   }
 
