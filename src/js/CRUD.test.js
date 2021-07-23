@@ -535,6 +535,7 @@ describe.only('edit', () => {
 
   test('Edit item updates local storage',() => {
 
+    Object.defineProperty(window, 'localStorage', { value: new LocalStorageMock() });
     const expected = [
       { description: 'Task 1', completed: false, index: 1 },
       { description: 'Task 2', completed: false, index: 2 },
