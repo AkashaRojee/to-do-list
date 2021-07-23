@@ -64,19 +64,23 @@ export default class CRUD {
     if (e.relatedTarget === this.deleteButton) {
       this.deleteTask(e, spanArray, toDoList, checkboxList, drag);
     } else {
-      this.toggleDeleteButton(e);
-
-      toDoList.updateTask(
-        spanArray.indexOfElement(e.target),
-        'description',
-        getInnerHTML(e.target),
-      );
+      this.editDescription(e, spanArray, toDoList);
     }
   }
 
   deleteTask(e, spanArray, toDoList, checkboxList, drag) {
     toDoList.deleteTask(spanArray.indexOfElement(e.target));
     this.refresh(toDoList, checkboxList, drag);
+  }
+
+  editDescription(e, spanArray, toDoList) {
+    this.toggleDeleteButton(e);
+
+    toDoList.updateTask(
+      spanArray.indexOfElement(e.target),
+      'description',
+      getInnerHTML(e.target),
+    );
   }
 
   clearCompleted(toDoList, checkboxList, drag) {
