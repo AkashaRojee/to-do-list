@@ -76,11 +76,11 @@ export default class CRUD {
   editDescription(e, spanArray, toDoList) {
     this.toggleDeleteButton(e);
 
-      toDoList.updateTask(
-        spanArray.indexOfElement(e.target),
-        'description',
-        getInnerHTML(e.target),
-      );  
+    toDoList.updateTask(
+      spanArray.indexOfElement(e.target),
+      'description',
+      getInnerHTML(e.target),
+    );
   }
 
   clearCompleted(toDoList, checkboxList, drag) {

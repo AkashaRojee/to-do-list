@@ -20,9 +20,8 @@ test('add() adds new task to non-empty tasks array', () => {
   expect(result.tasks).toStrictEqual(expected);
 });
 
-//DND updates DOM, then calls reOrder, which updates indices
+// DND updates DOM, then calls reOrder, which updates indices
 test('reOrder updates indices in array', () => {
-
   document.body.innerHTML = (
     '<div class="flex-row">'
     + ' <input type="text" value="Task 1" class="fill" placeholder="Add to your list...">'
@@ -68,7 +67,7 @@ test('reOrder updates indices in array', () => {
     + '<div class="flex-row justify-center align-center">'
     + ' <button type="button" class="btn-clear pointer">Clear all completed</button>'
     + '</div>').replace(/>\s+</g, '><');
-  let toDoList = new ToDoList();
+  const toDoList = new ToDoList();
   toDoList.listItems = document.querySelectorAll('li');
   const expected = [
     new Task('Task 1', false, 1),
@@ -82,5 +81,4 @@ test('reOrder updates indices in array', () => {
   const result = toDoList.tasks;
 
   expect(result).toStrictEqual(expected);
-
 });

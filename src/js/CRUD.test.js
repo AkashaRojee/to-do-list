@@ -24,8 +24,7 @@ function setupObjects(eventType = 'click') {
 describe('add', () => {
   describe('add to empty to-do list', () => {
     beforeEach(() => {
-      document.body.innerHTML =
-          '<div class="flex-row">'
+      document.body.innerHTML = '<div class="flex-row">'
         + ' <input type="text" value="Task 1" class="fill" placeholder="Add to your list...">'
         + ' <button type="button" class="material-icons">add</button>'
         + '</div>'
@@ -36,7 +35,6 @@ describe('add', () => {
         + '</div>';
 
       setupObjects();
-
     });
 
     test('Add new item via textbox adds item to empty array', () => {
@@ -407,13 +405,10 @@ describe('delete', () => {
       expect(result).toStrictEqual(expected);
     });
   });
-
 });
 
 describe('edit', () => {
-
   beforeEach(() => {
-
     document.body.innerHTML = ('<div class="flex-row">'
     + ' <input type="text" class="fill" placeholder="Add to your list...">'
     + ' <button type="button" class="material-icons">add</button>'
@@ -472,11 +467,9 @@ describe('edit', () => {
       new Task('Task 4', false, 4),
       new Task('Task 5', false, 5),
     ];
-
   });
 
-  test('Edit item updates array',() => {
-
+  test('Edit item updates array', () => {
     const expected = [
       new Task('Task 1', false, 1),
       new Task('Task 2', false, 2),
@@ -489,11 +482,9 @@ describe('edit', () => {
     const result = toDoList.tasks;
 
     expect(result).toStrictEqual(expected);
-    
-  })
+  });
 
   test('Edit item updates list in DOM', () => {
-
     const expected = (
       '<li class="flex-row space-between align-center" draggable="true">'
       + '  <div class="flex-row align-center fill">'
@@ -536,11 +527,9 @@ describe('edit', () => {
     const result = document.querySelector('ul').innerHTML;
 
     expect(result).toStrictEqual(expected);
-
   });
 
-  test('Edit item updates local storage',() => {
-
+  test('Edit item updates local storage', () => {
     Object.defineProperty(window, 'localStorage', { value: new LocalStorageMock() });
     const expected = [
       { description: 'Task 1', completed: false, index: 1 },
@@ -554,14 +543,11 @@ describe('edit', () => {
     const result = JSON.parse(localStorage.getItem('tasks'));
 
     expect(result).toStrictEqual(expected);
-
-  })
+  });
 });
 
 describe('clear all completed', () => {
-
   beforeEach(() => {
-
     document.body.innerHTML = ('<div class="flex-row">'
     + ' <input type="text" class="fill" placeholder="Add to your list...">'
     + ' <button type="button" class="material-icons">add</button>'
@@ -615,28 +601,23 @@ describe('clear all completed', () => {
       new Task('Task 3', false, 3),
       new Task('Task 4', false, 4),
       new Task('Task 5', true, 5),
-    ];  
-
+    ];
   });
 
   test('Clear All Completed removes completed tasks from array', () => {
-
     const expected = [
       new Task('Task 3', false, 1),
-      new Task('Task 4', false, 2)
+      new Task('Task 4', false, 2),
     ];
 
-    crud.clearCompleted(toDoList, checkboxList, drag)
+    crud.clearCompleted(toDoList, checkboxList, drag);
     const result = toDoList.tasks;
-  
+
     expect(result).toStrictEqual(expected);
-  
   });
 
   test('Clear All Completed removes checked items from list in DOM', () => {
-
-    const expected = 
-      ( '<li class="flex-row space-between align-center" draggable="true">'
+    const expected = ('<li class="flex-row space-between align-center" draggable="true">'
       + ' <div class="flex-row align-center fill">'
       + '   <input type="checkbox">'
       + '   <span class="fill" contenteditable="true">Task 3</span>'
@@ -650,28 +631,23 @@ describe('clear all completed', () => {
       + ' </div>'
       + ' <button class="material-icons drag" type="button">more_vert</button>'
       + '</li>').replace(/>\s+</g, '><');
-  
-    crud.clearCompleted(toDoList, checkboxList, drag)
+
+    crud.clearCompleted(toDoList, checkboxList, drag);
     const result = document.querySelector('ul').innerHTML;
-  
+
     expect(result).toStrictEqual(expected);
-  
   });
 
   test('Clear All Completed updates local storage', () => {
-
     Object.defineProperty(window, 'localStorage', { value: new LocalStorageMock() });
     const expected = [
       { description: 'Task 3', completed: false, index: 1 },
-      { description: 'Task 4', completed: false, index: 2 }
+      { description: 'Task 4', completed: false, index: 2 },
     ];
 
-    crud.clearCompleted(toDoList, checkboxList, drag)
+    crud.clearCompleted(toDoList, checkboxList, drag);
     const result = JSON.parse(localStorage.getItem('tasks'));
-  
+
     expect(result).toStrictEqual(expected);
-  
   });
-
 });
-
