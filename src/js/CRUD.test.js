@@ -183,7 +183,7 @@ describe('add', () => {
       expect(result.innerHTML).toStrictEqual(expected.innerHTML);
     });
 
-    test('Add new item via textbox adds to empty local storage', () => {
+    test('Add new item via textbox updates local storage', () => {
       Object.defineProperty(window, 'localStorage', { value: new LocalStorageMock() });
       const expected = [
         { description: 'Task 1', completed: false, index: 1 },

@@ -31,6 +31,14 @@ Things done so far:
 - Allow user to add, edit, and delete tasks
 - Make UI elements functional
 
+### 4. Review for JS best practices
+
+### 5. Implement unit testing for add and delete functionalities
+
+- Use Jest
+- Implement mock of local storage
+- Create unit tests for CRUD add and delete operations
+
 ## Built With
 
 - Major languages: HTML, SCSS, JS
@@ -44,14 +52,14 @@ Things done so far:
 
 To get a local copy up and running, follow the steps below in your terminal.
 
-## Prerequisites
+### Prerequisites
 
 - Node.js
 - npm
 
 _For more information, <a href="https://www.akasharojee.codes/2021/06/20/intro-to-nodejs-and-npm.html" target="_blank">view the section **Installation** in this guide about Node.js and npm</a>._
 
-## Setup
+### Setup
 
 Clone the project:
 
@@ -59,7 +67,7 @@ Clone the project:
 git clone https://github.com/AkashaRojee/to-do-list.git
 ```
 
-## Install
+### Install
 
 There are currently no production dependencies.
 
@@ -74,6 +82,14 @@ npm install
 The assets are in the `src` directory.
 
 The output is in the `docs` directory.
+
+### Run tests
+
+To run the entire test suite:
+
+```
+npm test
+```
 
 ### Deployment
 
@@ -98,6 +114,10 @@ npm run start
 - GitHub: [@AkashaRojee](https://github.com/AkashaRojee)
 - Twitter: [@AkashaRojee](https://twitter.com/AkashaRojee)
 - LinkedIn: [Akasha Rojee](https://linkedin.com/in/AkashaRojee)
+
+👤 **Hubert Mugabo**
+
+- GitHub: [@mugberto](https://github.com/mugberto)
 
 ## 🤝 Contributing
 
